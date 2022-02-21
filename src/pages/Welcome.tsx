@@ -1,36 +1,40 @@
 import React from "react";
 import {
+  StyleSheet,
   SafeAreaView,
   View,
   Text,
-  Image,
   TouchableOpacity,
-  StyleSheet,
+  Image,
   Dimensions,
 } from "react-native";
-
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/core";
+import { RootStackParamList } from "../routes/stack.routes";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import wateringImg from "../assets/watering.png";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
-export function Welcome() {
-  const navigation = useNavigation();
+type NavigationProps = StackNavigationProp<RootStackParamList>;
 
+export function Welcome() {
+  const navigation = useNavigation<NavigationProps>();
   function handleStart() {
-    navigation.navigate("UserIdentification" as never);
+    navigation.navigate("UserIdentification");
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>
         <Text style={styles.title}>
-          Gerencie {"\n"} suas plantas de {"\n"} forma fácil
+          Gerencie {"\n"}
+          suas plantas de {"\n"}
+          forma fácil
         </Text>
 
-        <Image style={styles.image} resizeMode="contain" source={wateringImg} />
+        <Image source={wateringImg} style={styles.image} resizeMode="contain" />
 
         <Text style={styles.subtitle}>
           Não esqueça mais de regar suas plantas. Nós cuidamos de lembrar você
@@ -60,24 +64,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   title: {
-    fontFamily: fonts.heading,
     fontSize: 28,
-    lineHeight: 34,
-    fontWeight: "bold",
     textAlign: "center",
     color: colors.heading,
     marginTop: 38,
-  },
-  image: {
-    height: Dimensions.get("window").width * 0.7,
+    fontFamily: fonts.heading,
+    lineHeight: 34,
   },
   subtitle: {
-    fontFamily: fonts.text,
-    lineHeight: 28,
     textAlign: "center",
     fontSize: 18,
     paddingHorizontal: 20,
     color: colors.heading,
+    fontFamily: fonts.text,
+  },
+  image: {
+    height: Dimensions.get("window").width * 0.7,
   },
   button: {
     backgroundColor: colors.green,
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     width: 56,
   },
   buttonIcon: {
+    fontSize: 32,
     color: colors.white,
-    fontSize: 24,
   },
 });

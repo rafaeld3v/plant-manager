@@ -2,27 +2,34 @@ import React, { useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
-  View,
   Text,
+  View,
   TextInput,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Platform,
   Keyboard,
+  Alert,
 } from "react-native";
+import { useNavigation } from "@react-navigation/core";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../routes/stack.routes";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { Button } from "../components/Button";
-import { useNavigation } from "@react-navigation/native";
 
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
+
+type NavigationProps = StackNavigationProp<RootStackParamList>;
 
 export function UserIdentification() {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
   const [name, setName] = useState<string>();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
 
   function handleInputBlur() {
     setIsFocused(false);
@@ -38,8 +45,22 @@ export function UserIdentification() {
     setName(value);
   }
 
-  function handleSubmit() {
-    navigation.navigate("Confirmation" as never);
+  async function handleSubmit() {
+    if (!name) return Alert.alert("Me diz como chamar você 😢");
+
+    try {
+      await AsyncStorage.setItem("@plantmanager:user", name);
+      navigation.navigate("Confirmation", {
+        title: "Prontinho",
+        subtitle:
+          "Agora vamos começar a cuidar das suas plantinhas com muito cuidado.",
+        buttonTitle: "Começar",
+        icon: "smile",
+        nextScreen: "PlantSelect",
+      });
+    } catch {
+      Alert.alert("Não foi possível salvar o seu nome. 😢");
+    }
   }
 
   return (
@@ -51,16 +72,20 @@ export function UserIdentification() {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.content}>
             <View style={styles.form}>
-              <Text style={styles.emoji}>{isFilled ? "😄" : "😀"}</Text>
-
-              <Text style={styles.title}>Como podemos {"\n"} chamar você?</Text>
+              <View style={styles.header}>
+                <Text style={styles.emoji}>{isFilled ? "😄" : "😀"}</Text>
+                <Text style={styles.title}>
+                  Como podemos {"\n"}
+                  chamar você?
+                </Text>
+              </View>
 
               <TextInput
                 style={[
                   styles.input,
                   (isFocused || isFilled) && { borderColor: colors.green },
                 ]}
-                placeholder="Digite seu nome"
+                placeholder="Digite um nome"
                 onBlur={handleInputBlur}
                 onFocus={handleInputFocus}
                 onChangeText={handleInputChange}
@@ -94,16 +119,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 54,
     alignItems: "center",
   },
-  emoji: {
-    fontSize: 34,
+  header: {
+    alignItems: "center",
   },
-  title: {
-    fontSize: 28,
-    lineHeight: 32,
-    textAlign: "center",
-    color: colors.heading,
-    fontFamily: fonts.heading,
-    marginTop: 20,
+  emoji: {
+    fontSize: 44,
   },
   input: {
     borderBottomWidth: 1,
@@ -114,6 +134,14 @@ const styles = StyleSheet.create({
     marginTop: 50,
     padding: 10,
     textAlign: "center",
+  },
+  title: {
+    fontSize: 24,
+    lineHeight: 32,
+    textAlign: "center",
+    color: colors.heading,
+    fontFamily: fonts.heading,
+    marginTop: 20,
   },
   footer: {
     width: "100%",
