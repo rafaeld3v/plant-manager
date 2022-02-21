@@ -10,10 +10,6 @@
 
 <br>
 
-<p align="center">
-  <img alt="Plant Manager" src=".github/plantmanager.png" width="100%">
-</p>
-
 ## ✨ Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
