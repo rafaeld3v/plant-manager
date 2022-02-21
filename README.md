@@ -1,9 +1,9 @@
 <h1 align="center">
-  <img alt="Plant Manager" title="Plant Manager" src=".github/logo.png" />
+  <img alt="Plant Manager" title="Plant Manager" src="https://raw.githubusercontent.com/rocketseat-education/nlw-05-react-native/main/.github/logo.png" />
 </h1>
 
 <p align="center">
-  <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=32B768&labelColor=000000">
+  <img alt="License" src="https://raw.githubusercontent.com/rocketseat-education/nlw-05-react-native/main/.github/plantmanager.png">
 
  <img src="https://img.shields.io/static/v1?label=NLW&message=05&color=32B768&labelColor=000000" alt="NLW 05" />
 </p>
