@@ -35,4 +35,4 @@ Você pode visualizar o layout do projeto através [desse link](https://www.figm
 
 ## 📄 Licença
 
-Desenvolvido durante o NLW#5 da Rocketseat.
+Desenvolvido durante o NLW#05 da Rocketseat **por** [**rafaeld3v**](https://www.linkedin.com/in/rafaeld3v/) 🤖
