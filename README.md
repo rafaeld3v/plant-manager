@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  <img alt="License" src="https://raw.githubusercontent.com/rocketseat-education/nlw-05-react-native/main/.github/plantmanager.png">
+  <img alt="License" src="./assets/capa.png">
 
  <img src="https://img.shields.io/static/v1?label=NLW&message=#05&color=32B768&labelColor=000000" alt="NLW 05" />
 </p>
